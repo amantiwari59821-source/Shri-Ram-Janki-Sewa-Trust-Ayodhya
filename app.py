@@ -8,11 +8,21 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
 from database import get_db, init_db
 
+import jinja2
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
+
+# Multi-path Jinja loader: checks templates/ subfolder, root directory, and Linux deploy paths
+app.jinja_loader = jinja2.ChoiceLoader([
+    jinja2.FileSystemLoader(TEMPLATE_DIR),
+    jinja2.FileSystemLoader(BASE_DIR),
+    jinja2.FileSystemLoader('/opt/render/project/src/templates'),
+    jinja2.FileSystemLoader('/opt/render/project/src'),
+])
 app.config['SECRET_KEY'] = 'shri-ram-janki-sewa-trust-ayodhya-2026'
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
