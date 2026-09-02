@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Confirmation - {{ booking.booking_reference }} | श्री राम जानकी सेवा ट्रस्ट{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Header Controls -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 no-print">
+        <div>
+            <a href="/" class="text-xs font-bold text-amber-800 hover:text-amber-950 flex items-center gap-1.5 mb-1">
+                <i class="fa-solid fa-arrow-left"></i> Back to Homepage
+            </a>
+            <h1 class="text-2xl font-bold font-serif-luxury text-amber-950">Yatra Booking Confirmation & Receipt</h1>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button onclick="window.print()" class="px-5 py-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold rounded-xl shadow flex items-center gap-2 transition-all">
+                <i class="fa-solid fa-print"></i> Print Voucher
+            </button>
+            <a href="/#rooms-section" class="kesariya-btn px-5 py-2 text-xs font-bold rounded-xl shadow flex items-center gap-2">
+                <i class="fa-solid fa-plus"></i> Book Another
+            </a>
+        </div>
+    </div>
+
+    <!-- Voucher Card -->
+    <div id="invoice-print-area" class="bg-white rounded-3xl border border-amber-200 shadow-xl overflow-hidden p-6 sm:p-10 space-y-6 text-xs">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-amber-100 pb-6">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center text-xl shadow">
+                        <i class="fa-solid fa-om"></i>
+                    </div>
+                    <div>
+                        <span class="block font-serif-luxury text-lg font-bold text-amber-950">श्री राम जानकी सेवा ट्रस्ट</span>
+                        <span class="block text-[10px] tracking-[0.2em] text-amber-700 uppercase font-bold">Ayodhya Dham, Uttar Pradesh</span>
+                    </div>
+                </div>
+                <p class="text-stone-600 text-[11px] leading-relaxed">
+                    1.4 km from Shri Ram Janmabhoomi Mandir Complex, Ramkot, Ayodhya Dham, UP - 224123<br>
+                    Helpline: <strong>8303333310</strong> | Email: <strong>shriramjankisewa@gmail.com</strong>
+                </p>
+            </div>
+
+            <div class="text-left sm:text-right space-y-1">
+                <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full uppercase border border-emerald-300">
+                    <i class="fa-solid fa-circle-check mr-1"></i> {{ booking.booking_status }}
+                </span>
+                <div class="text-[11px] text-stone-400">Booking Reference</div>
+                <div class="text-lg font-black font-mono text-amber-950 tracking-wider">{{ booking.booking_reference }}</div>
+            </div>
+        </div>
+
+        <!-- Yatri & Stay Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 bg-amber-50/60 rounded-2xl border border-amber-200/80">
+            <div class="space-y-1.5">
+                <h4 class="font-bold text-amber-900 uppercase tracking-wider text-[10px]">Verified Yatri Details</h4>
+                <div class="text-sm font-bold text-stone-900">{{ booking.guest_name }}</div>
+                
+                {% if booking.guest_type == 'Indian' %}
+                    <div class="text-stone-700"><span class="text-stone-500">Citizen:</span> <strong>Indian Citizen (भारतीय)</strong></div>
+                    <div class="text-stone-700"><span class="text-stone-500">Aadhaar Card:</span> <strong class="font-mono">{{ booking.id_proof_number }}</strong></div>
+                    <div class="text-stone-700"><span class="text-stone-500">Mobile:</span> {{ booking.guest_phone }}</div>
+                {% else %}
+                    <div class="text-stone-700"><span class="text-stone-500">Category:</span> <strong>NRI / Foreign Pilgrim</strong></div>
+                    <div class="text-stone-700"><span class="text-stone-500">Country:</span> <strong>{{ booking.country_name }}</strong></div>
+                    <div class="text-stone-700"><span class="text-stone-500">Passport / Govt ID:</span> <strong class="font-mono">{{ booking.id_proof_number }}</strong></div>
+                {% endif %}
+                
+                <div class="text-stone-600"><span class="text-stone-500">Email:</span> {{ booking.guest_email }}</div>
+
+                {% if booking.special_requests %}
+                    <div class="p-2 bg-white rounded-lg border border-amber-200 text-[11px] text-stone-700 mt-1">
+                        <strong>Notes:</strong> {{ booking.special_requests }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="space-y-1.5">
+                <h4 class="font-bold text-amber-900 uppercase tracking-wider text-[10px]">Room & Stay Schedule</h4>
+                <div class="text-sm font-bold text-stone-900">{{ booking.room_name }}</div>
+                <div class="text-stone-600">Rate Plan: <strong>{{ booking.guest_type }} Rate</strong> (₹{{ "{:,.0f}".format(booking.price_per_unit) }}/unit)</div>
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <div class="p-2 bg-white rounded-lg border border-amber-200">
+                        <span class="text-[10px] text-stone-400 block">Check-In</span>
+                        <strong class="text-stone-800">{{ booking.check_in }}</strong>
+                    </div>
+                    <div class="p-2 bg-white rounded-lg border border-amber-200">
+                        <span class="text-[10px] text-stone-400 block">Check-Out</span>
+                        <strong class="text-stone-800">{{ booking.check_out }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Status & QR Check-in -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-6 pt-2 border-t border-amber-100">
+            <div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-amber-200">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data={{ booking.booking_reference }}" alt="QR" class="w-16 h-16 object-contain">
+                <div class="text-[11px] text-stone-600">
+                    <strong class="block text-stone-900">Front Desk Check-in QR</strong>
+                    Show this QR at reception for instant room key card.
+                </div>
+            </div>
+
+            <div class="w-full sm:w-64 text-right space-y-1">
+                <div class="text-stone-500">Duration: <strong>{{ booking.total_nights }} Night(s)</strong></div>
+                <div class="text-stone-600">
+                    Payment Mode: <strong>{{ booking.payment_method }}</strong>
+                </div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 font-bold rounded-full border border-emerald-300">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                    <span>Status: {{ booking.payment_status }}</span>
+                </div>
+                <div class="text-xl font-black text-amber-950 font-serif-luxury pt-1">
+                    Total: ₹{{ "{:,.2f}".format(booking.total_amount) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-4 border-t border-amber-100 text-[10px] text-stone-400 text-center">
+            May Lord Rama and Mata Janaki bless your pilgrimage to Ayodhya Dham. जय श्री राम!
+        </div>
+    </div>
+</div>
+{% endblock %}

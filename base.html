@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="hi-EN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}श्री राम जानकी सेवा ट्रस्ट, अयोध्या धाम | Shri Ram Janki Sewa Trust{% endblock %}</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-[#fffdfa] text-stone-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 text-amber-100 text-xs py-2.5 px-4 border-b border-amber-900/40">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-4 flex-wrap justify-center">
+                <span class="font-bold text-amber-300 flex items-center gap-1">
+                    <i class="fa-solid fa-om text-amber-400"></i> श्री राम जानकी सेवा ट्रस्ट (पंजीकृत) • अयोध्या धाम
+                </span>
+                <span class="hidden md:inline text-amber-700">|</span>
+                <span class="text-amber-200/90"><i class="fa-solid fa-gopuram text-amber-400 mr-1"></i> Shri Ram Janmabhoomi Mandir: 1.4 km</span>
+                <span class="hidden md:inline text-amber-700">|</span>
+                <span><i class="fa-solid fa-phone text-amber-400 mr-1"></i> Helpline: 8303333310</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-stone-300"><i class="fa-regular fa-envelope text-amber-400 mr-1"></i> shriramjankisewa@gmail.com</span>
+                <span class="text-amber-800">|</span>
+                <a href="/admin" class="text-amber-300 hover:text-white font-bold flex items-center gap-1">
+                    <i class="fa-solid fa-user-shield"></i> Trust Admin
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/70 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-600 via-orange-600 to-amber-700 flex items-center justify-center text-white text-2xl shadow-md group-hover:scale-105 transition-transform border border-amber-300/40">
+                        <i class="fa-solid fa-om"></i>
+                    </div>
+                    <div>
+                        <span class="block font-serif-luxury text-lg sm:text-xl font-black tracking-wide text-amber-950 leading-none">श्री राम जानकी सेवा ट्रस्ट</span>
+                        <span class="block text-[10px] tracking-[0.2em] text-amber-700 font-bold uppercase mt-0.5">Atithi Bhawan & Rooms • Ayodhya Dham</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center gap-7 text-xs font-bold text-stone-700 uppercase tracking-wider">
+                    <a href="/#aarti-section" class="hover:text-amber-600 transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-bell text-amber-600"></i> Aarti Timings
+                    </a>
+                    <a href="/#distance-section" class="hover:text-amber-600 transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-route text-amber-600"></i> Mandir Guide (1.4 km)
+                    </a>
+                    <a href="/#rooms-section" class="hover:text-amber-600 transition-colors">AC, Non-AC & Dormitory</a>
+                    <a href="/#contact-section" class="hover:text-amber-600 transition-colors">Contact</a>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-2.5">
+                    <button onclick="toggleDevotionalAudio()" id="ambient-audio-btn" class="hidden sm:flex px-3 py-2 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold rounded-xl transition-all items-center gap-2" title="Play / Pause Temple Flute">
+                        <i id="audio-icon" class="fa-solid fa-music text-amber-600"></i>
+                        <span id="audio-text" class="text-[11px]">Divine Flute</span>
+                    </button>
+
+                    <button onclick="openMyBookingsModal()" class="px-3.5 py-2.5 bg-amber-100/70 hover:bg-amber-200 text-amber-950 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 border border-amber-200">
+                        <i class="fa-solid fa-ticket text-amber-700"></i> My Booking
+                    </button>
+                    
+                    <a href="/#rooms-section" class="kesariya-btn px-4 sm:px-5 py-2.5 text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-md">
+                        <i class="fa-solid fa-calendar-check"></i> Book Room
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Modals -->
+    <div id="room-detail-modal" class="fixed inset-0 z-50 hidden modal-backdrop bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+        <div id="room-detail-content" class="w-full flex items-center justify-center"></div>
+    </div>
+
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden modal-backdrop bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+        <div id="booking-modal-content" class="w-full flex items-center justify-center"></div>
+    </div>
+
+    <div id="my-bookings-modal" class="fixed inset-0 z-50 hidden modal-backdrop bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bg-white rounded-3xl overflow-hidden shadow-2xl max-w-xl w-full max-h-[85vh] flex flex-col border border-amber-200">
+            <div class="p-6 bg-slate-950 text-white flex items-center justify-between border-b border-amber-900/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-om"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-luxury font-bold text-lg text-white">Find Your Booking</h3>
+                        <p class="text-xs text-amber-200/80">Shri Ram Janki Sewa Trust, Ayodhya</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('my-bookings-modal')" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-4">
+                <form onsubmit="handleBookingLookup(event)" class="flex gap-2">
+                    <input type="text" id="lookup-query" placeholder="Enter Booking ID (e.g. SRJ-2026-1008) or Email" class="flex-1 px-4 py-2.5 bg-slate-50 border border-amber-200 rounded-xl text-xs font-semibold outline-none" required>
+                    <button type="submit" class="kesariya-btn px-5 py-2.5 text-xs font-bold rounded-xl flex items-center gap-1.5 shadow">
+                        <i class="fa-solid fa-magnifying-glass"></i> Search
+                    </button>
+                </form>
+
+                <div id="lookup-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-amber-100/80 pt-14 pb-8 border-t border-amber-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-amber-900/40 text-xs">
+                <!-- Trust Info -->
+                <div class="lg:col-span-2 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center text-xl shadow">
+                            <i class="fa-solid fa-om"></i>
+                        </div>
+                        <div>
+                            <span class="block font-serif-luxury text-base font-bold text-white">श्री राम जानकी सेवा ट्रस्ट</span>
+                            <span class="block text-[9px] tracking-[0.2em] text-amber-400 uppercase font-bold">Ayodhya Dham, Uttar Pradesh</span>
+                        </div>
+                    </div>
+                    <p class="text-stone-300 leading-relaxed text-xs max-w-md">
+                        Clean, peaceful, and comfortable accommodations for pilgrims visiting Ayodhya Dham. Located just 1.4 km from Shri Ram Janmabhoomi Mandir. Offering AC Rooms, Non-AC Rooms, and Dormitory setups.
+                    </p>
+                </div>
+
+                <!-- Rooms -->
+                <div>
+                    <h4 class="font-bold text-white uppercase tracking-wider mb-3 text-xs font-serif-luxury text-amber-300">Room Categories</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/#rooms-section" class="hover:text-amber-400 transition-colors">AC Room (₹3,000 Indian / ₹5,500 NRI)</a></li>
+                        <li><a href="/#rooms-section" class="hover:text-amber-400 transition-colors">Non-AC Room (₹1,500 Indian / ₹3,500 NRI)</a></li>
+                        <li><a href="/#rooms-section" class="hover:text-amber-400 transition-colors">Dormitory Hall (₹200 Indian / ₹1,000 NRI)</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-bold text-white uppercase tracking-wider mb-3 text-xs font-serif-luxury text-amber-300">Contact & Location</h4>
+                    <ul class="space-y-2.5">
+                        <li class="flex items-start gap-2">
+                            <i class="fa-solid fa-location-dot text-amber-400 mt-0.5"></i>
+                            <span>Near Shri Ram Janmabhoomi Complex, Ramkot, Ayodhya Dham, UP - 224123 (1.4 km from Mandir)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-amber-400"></i>
+                            <span class="font-bold text-white">8303333310</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-amber-400"></i>
+                            <span>shriramjankisewa@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
+                <p>&copy; 2026 श्री राम जानकी सेवा ट्रस्ट, अयोध्या धाम. All rights reserved.</p>
+                <div class="text-amber-400 font-bold">
+                    <span>जय श्री राम • जय जानकी मैया</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

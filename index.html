@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}श्री राम जानकी सेवा ट्रस्ट, अयोध्या धाम | Atithi Bhawan & Rooms{% endblock %}
+
+{% block content %}
+<!-- 1. HERO SECTION -->
+<section class="relative hero-bg text-white pt-20 pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div class="max-w-6xl mx-auto text-center space-y-5 relative z-10">
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-amber-950/80 backdrop-blur-md border border-amber-500/40 text-amber-300 text-xs font-bold tracking-wider shadow-xl">
+            <i class="fa-solid fa-om text-amber-400"></i> श्री राम जानकी सेवा ट्रस्ट • अयोध्या धाम (1.4 km from Ram Mandir)
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif-luxury leading-tight max-w-4xl mx-auto">
+            श्री राम जन्मभूमि के निकट <br>
+            <span class="saffron-gradient-text italic">पवित्र एवं शांत अतिथि निवास</span>
+        </h1>
+
+        <p class="text-amber-100/90 text-xs sm:text-sm max-w-2xl mx-auto font-light leading-relaxed">
+            अयोध्या धाम दर्शन हेतु पधारने वाले सभी श्रद्धालुओं के लिए स्वच्छ, सुरक्षित एवं सुलभ AC रूम, Non-AC रूम एवं डॉर्मिटरी की उत्तम व्यवस्था।
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <a href="#rooms-section" class="kesariya-btn px-8 py-3.5 text-xs font-bold rounded-2xl flex items-center gap-2 shadow-xl">
+                <i class="fa-solid fa-bed"></i> Book Rooms (कमरे देखें एवं बुक करें)
+            </a>
+            <a href="tel:8303333310" class="px-7 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-amber-300/40 backdrop-blur-md text-xs font-semibold rounded-2xl transition-all flex items-center gap-2">
+                <i class="fa-solid fa-phone text-amber-300"></i> Call Helpdesk: 8303333310
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 2. GUEST TYPE TOGGLE & ROOMS CATALOG -->
+<section id="rooms-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    
+    <!-- Section Header & Dual Pricing Toggle -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-amber-200/80 pb-6">
+        <div>
+            <span class="text-xs font-bold tracking-widest text-amber-700 uppercase">Accommodations in Ayodhya Dham</span>
+            <h2 class="text-3xl sm:text-4xl font-bold font-serif-luxury text-amber-950 mt-1">
+                Our Rooms & Rates (कमरे एवं दरें)
+            </h2>
+            <p class="text-stone-600 text-xs mt-1">Choose your category below to view rates for Indian or NRI Pilgrims.</p>
+        </div>
+
+        <!-- Indian vs NRI Selector -->
+        <div class="p-1.5 bg-amber-100/70 rounded-2xl border border-amber-300 flex items-center gap-1">
+            <button id="btn-indian-guest" onclick="setGuestType('Indian')" class="px-5 py-2.5 bg-amber-600 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-flag"></i> Indian Citizen (भारतीय)
+            </button>
+            <button id="btn-nri-guest" onclick="setGuestType('NRI')" class="px-5 py-2.5 bg-white text-stone-700 hover:bg-amber-50 font-semibold text-xs rounded-xl border border-amber-200 transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-globe"></i> NRI / Foreign Pilgrim
+            </button>
+        </div>
+    </div>
+
+    <!-- Live Dynamic Pricing Summary Cards -->
+    <div id="quick-price-summary" class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        <!-- Dynamically filled by JavaScript from live DB -->
+    </div>
+
+    <!-- 3 Dynamic Room Cards -->
+    <div id="rooms-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-2">
+        <!-- Injected by JavaScript with user photos -->
+    </div>
+</section>
+
+<!-- 3. LIVE AARTI TIMINGS -->
+<section id="aarti-section" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-gradient-to-br from-amber-900 via-stone-900 to-amber-950 rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-amber-500/30 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-amber-800/60 pb-4">
+            <div>
+                <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest">
+                    <i class="fa-solid fa-bell"></i> Shri Ram Janmabhoomi Mandir
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold font-serif-luxury text-white mt-1">
+                    Daily Aarti Timings (आरती समय-सारणी)
+                </h2>
+            </div>
+            <div class="text-xs text-amber-300 font-semibold bg-amber-500/20 px-3.5 py-1.5 rounded-xl border border-amber-400/30">
+                <i class="fa-solid fa-location-dot mr-1"></i> Trust is 1.4 km from Mandir
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for aarti in trust.aarti_timings %}
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 space-y-1.5 hover:border-amber-400 transition-colors">
+                    <div class="flex items-center justify-between">
+                        <span class="text-amber-400 text-base"><i class="fa-solid {{ aarti.icon }}"></i></span>
+                        <span class="px-2.5 py-0.5 bg-amber-500 text-stone-900 text-xs font-extrabold rounded-full font-mono">{{ aarti.time }}</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white font-serif-luxury">{{ aarti.name }}</h3>
+                    <p class="text-[11px] text-amber-100/70">{{ aarti.significance }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- 4. AYODHYA DISTANCE GUIDE -->
+<section id="distance-section" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto space-y-1.5 mb-8">
+        <span class="text-xs font-bold tracking-widest text-amber-700 uppercase">Ayodhya Pilgrimage Distances</span>
+        <h2 class="text-3xl font-bold font-serif-luxury text-amber-950">Key Locations from Trust</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {% for spot in trust.key_distances %}
+            <div class="p-4 bg-white rounded-2xl border border-amber-200 shadow-sm text-center space-y-1.5 hover:border-amber-500 transition-all">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg">
+                    <i class="fa-solid {{ spot.icon }}"></i>
+                </div>
+                <h4 class="font-bold text-stone-900 text-xs line-clamp-2">{{ spot.place }}</h4>
+                <div class="text-amber-700 font-extrabold text-sm font-mono">{{ spot.distance }}</div>
+                <span class="text-[10px] text-stone-500 block bg-amber-50 py-0.5 rounded">{{ spot.time }} commute</span>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- 5. CONTACT & INQUIRY -->
+<section id="contact-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div class="space-y-5">
+            <div>
+                <span class="text-xs font-bold tracking-widest text-amber-700 uppercase">Trust Helpdesk</span>
+                <h2 class="text-3xl font-bold font-serif-luxury text-amber-950 mt-1">
+                    Connect with Shri Ram Janki Sewa Trust
+                </h2>
+                <p class="text-stone-600 text-xs mt-2 leading-relaxed">
+                    Ayodhya Dham yatra, room reservation, or direct trust inquiry ke liye hamse sampark karein.
+                </p>
+            </div>
+
+            <div class="space-y-3 text-xs text-stone-800">
+                <div class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-amber-200 shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-base">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold block text-stone-900">Mobile & WhatsApp Helpline</span>
+                        <a href="tel:8303333310" class="text-amber-800 font-bold text-sm hover:underline">8303333310</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-amber-200 shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-base">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold block text-stone-900">Official Trust Email</span>
+                        <a href="mailto:shriramjankisewa@gmail.com" class="text-amber-800 font-bold hover:underline">shriramjankisewa@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-amber-200 shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-base">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold block text-stone-900">Location</span>
+                        <span>Near Shri Ram Janmabhoomi Mandir Complex (1.4 km), Ramkot, Ayodhya Dham, UP - 224123</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-7 rounded-3xl border border-amber-200 shadow-xl">
+            <h3 class="text-base font-bold font-serif-luxury text-amber-950 mb-3">Send a Message / Inquiry</h3>
+            <form onsubmit="handleContactForm(event)" class="space-y-3.5 text-xs">
+                <div>
+                    <label class="block font-semibold text-stone-700 mb-1">Your Full Name *</label>
+                    <input type="text" name="name" placeholder="Ramesh Sharma" class="w-full px-3.5 py-2 bg-amber-50/40 border border-amber-200 rounded-xl outline-none" required>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold text-stone-700 mb-1">Email Address *</label>
+                        <input type="email" name="email" placeholder="ramesh@gmail.com" class="w-full px-3.5 py-2 bg-amber-50/40 border border-amber-200 rounded-xl outline-none" required>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-stone-700 mb-1">Mobile WhatsApp Number *</label>
+                        <input type="tel" name="phone" placeholder="8303333310" class="w-full px-3.5 py-2 bg-amber-50/40 border border-amber-200 rounded-xl outline-none" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-stone-700 mb-1">Your Message *</label>
+                    <textarea name="message" rows="3" placeholder="Tell us your query or arrival date..." class="w-full px-3.5 py-2 bg-amber-50/40 border border-amber-200 rounded-xl outline-none" required></textarea>
+                </div>
+
+                <button type="submit" class="kesariya-btn w-full py-2.5 font-bold rounded-xl shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

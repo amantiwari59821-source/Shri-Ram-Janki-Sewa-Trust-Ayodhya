@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+
+{% block title %}Trust Admin & Room Rate Hub | श्री राम जानकी सेवा ट्रस्ट{% endblock %}
+
+{% block content %}
+<div class="bg-slate-900 text-white min-h-screen">
+    <!-- Topbar -->
+    <div class="border-b border-amber-900/50 bg-slate-950 px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-om"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold font-serif-luxury text-white">श्री राम जानकी सेवा ट्रस्ट — Management Portal</h1>
+                    <span class="text-xs text-amber-300">Room Rate Controller, Photo Uploader & Live Bookings</span>
+                </div>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex items-center gap-1.5 overflow-x-auto bg-slate-900 p-1.5 rounded-2xl border border-slate-800 text-xs font-bold">
+                <button onclick="switchAdminTab('overview')" data-tab="overview" class="admin-tab-btn px-4 py-2 bg-amber-600 text-white rounded-xl shadow transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-chart-pie"></i> Overview
+                </button>
+                <button onclick="switchAdminTab('rooms')" data-tab="rooms" class="admin-tab-btn px-4 py-2 text-slate-400 hover:text-white rounded-xl transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-bed"></i> Room Rates (AC, Non-AC, Dorm)
+                </button>
+                <button onclick="switchAdminTab('photos')" data-tab="photos" class="admin-tab-btn px-4 py-2 text-slate-400 hover:text-white rounded-xl transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-images"></i> Upload Photos
+                </button>
+                <button onclick="switchAdminTab('bookings')" data-tab="bookings" class="admin-tab-btn px-4 py-2 text-slate-400 hover:text-white rounded-xl transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-calendar-check"></i> Reservations
+                </button>
+                <button onclick="switchAdminTab('inquiries')" data-tab="inquiries" class="admin-tab-btn px-4 py-2 text-slate-400 hover:text-white rounded-xl transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-envelope"></i> Messages
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Body -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-8 space-y-8">
+        
+        <!-- ================= TAB 1: OVERVIEW ================= -->
+        <div id="tab-overview" class="admin-tab-content space-y-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 bg-slate-800/90 rounded-3xl border border-amber-900/40 shadow-lg space-y-2">
+                    <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+                        <span>Total Realized Revenue</span>
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+                    </div>
+                    <div id="kpi-revenue" class="text-3xl font-black font-serif-luxury text-emerald-400">₹0</div>
+                    <span class="text-[11px] text-slate-400 font-medium">From actual customer bookings</span>
+                </div>
+
+                <div class="p-6 bg-slate-800/90 rounded-3xl border border-amber-900/40 shadow-lg space-y-2">
+                    <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+                        <span>Total Devotee Bookings</span>
+                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                    </div>
+                    <div id="kpi-bookings" class="text-3xl font-black font-serif-luxury text-white">0</div>
+                    <span class="text-[11px] text-slate-400 font-medium">Live bookings count</span>
+                </div>
+
+                <div class="p-6 bg-slate-800/90 rounded-3xl border border-amber-900/40 shadow-lg space-y-2">
+                    <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+                        <span>Occupancy Rate</span>
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </div>
+                    </div>
+                    <div id="kpi-occupancy" class="text-3xl font-black font-serif-luxury text-amber-400">0%</div>
+                    <span class="text-[11px] text-slate-400 font-medium">Current occupancy</span>
+                </div>
+
+                <div class="p-6 bg-slate-800/90 rounded-3xl border border-amber-900/40 shadow-lg space-y-2">
+                    <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+                        <span>Available Rooms</span>
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center">
+                            <i class="fa-solid fa-door-open"></i>
+                        </div>
+                    </div>
+                    <div id="kpi-available" class="text-3xl font-black font-serif-luxury text-white">3 / 3</div>
+                    <span class="text-[11px] text-slate-400 font-medium">Ready for check-in</span>
+                </div>
+            </div>
+
+            <div class="p-6 bg-slate-800/90 rounded-3xl border border-slate-700 shadow-lg space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders"></i> Quick Admin Shortcuts
+                    </h3>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div class="p-4 bg-slate-900 rounded-2xl border border-slate-700 space-y-2">
+                        <strong class="text-white block text-sm"><i class="fa-solid fa-indian-rupee-sign text-amber-400 mr-1"></i> Edit Room Prices Anytime</strong>
+                        <p class="text-slate-400">You can increase or decrease prices for Indian and NRI guests in 1 click under the <strong>Room Rates</strong> tab.</p>
+                        <button onclick="switchAdminTab('rooms')" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl transition-colors">
+                            Manage Rates Now
+                        </button>
+                    </div>
+
+                    <div class="p-4 bg-slate-900 rounded-2xl border border-slate-700 space-y-2">
+                        <strong class="text-white block text-sm"><i class="fa-solid fa-camera text-amber-400 mr-1"></i> Upload Hotel Photos</strong>
+                        <p class="text-slate-400">Choose any photo from your computer or phone and assign it directly to AC, Non-AC, or Dormitory rooms.</p>
+                        <button onclick="switchAdminTab('photos')" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl transition-colors">
+                            Upload Photos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 2: ROOM RATES & INVENTORY ================= -->
+        <div id="tab-rooms" class="admin-tab-content hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold font-serif-luxury text-white">Room Rate Controller (3 Rooms)</h2>
+                    <p class="text-xs text-slate-400">Edit prices for Indian and NRI guests below. Type new price and click outside to save instantly!</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xl text-slate-900">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead class="bg-amber-50/70 border-b border-amber-200 text-amber-950 uppercase text-[10px]">
+                            <tr>
+                                <th class="py-4 px-4">Room #</th>
+                                <th class="py-4 px-4">Room Name</th>
+                                <th class="py-4 px-4">Indian Devotee Rate (₹)</th>
+                                <th class="py-4 px-4">NRI / Foreign Rate (₹)</th>
+                                <th class="py-4 px-4">Status</th>
+                                <th class="py-4 px-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-rooms-tbody" class="divide-y divide-slate-100">
+                            <!-- Injected by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 3: PHOTO UPLOAD & MEDIA HUB ================= -->
+        <div id="tab-photos" class="admin-tab-content hidden space-y-6">
+            <div>
+                <h2 class="text-xl font-bold font-serif-luxury text-white">Upload Hotel Photos</h2>
+                <p class="text-xs text-slate-400">Select photos of your hotel from your laptop or mobile to upload and display on the site.</p>
+            </div>
+
+            <div class="p-8 bg-slate-800/90 rounded-3xl border border-amber-500/40 shadow-xl space-y-6">
+                <div class="border-2 border-dashed border-amber-500/50 rounded-3xl p-10 text-center space-y-4 hover:border-amber-400 transition-colors bg-slate-900/50">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Select Photo from Computer</h3>
+                        <p class="text-xs text-slate-400 mt-1">Supports JPG, JPEG, PNG, and WEBP formats</p>
+                    </div>
+                    <div>
+                        <input type="file" id="hotel-photo-file-input" onchange="handleImageUpload(this)" accept="image/*" class="hidden">
+                        <label for="hotel-photo-file-input" class="kesariya-btn px-6 py-3 rounded-xl text-xs font-bold cursor-pointer inline-flex items-center gap-2 shadow-lg">
+                            <i class="fa-solid fa-image"></i> Choose Photo File
+                        </label>
+                    </div>
+                    <div id="uploaded-photo-preview" class="max-w-md mx-auto"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 4: RESERVATIONS ================= -->
+        <div id="tab-bookings" class="admin-tab-content hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold font-serif-luxury text-white">Customer Yatra Reservations</h2>
+                    <p class="text-xs text-slate-400">All genuine bookings made by guests will show up here in real-time.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-xl text-slate-900">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead class="bg-amber-50/70 border-b border-amber-200 text-amber-950 uppercase text-[10px]">
+                            <tr>
+                                <th class="py-4 px-4">Booking Ref</th>
+                                <th class="py-4 px-4">Guest Details</th>
+                                <th class="py-4 px-4">Room & Rate</th>
+                                <th class="py-4 px-4">Stay Dates</th>
+                                <th class="py-4 px-4">Total Amount</th>
+                                <th class="py-4 px-4">Status</th>
+                                <th class="py-4 px-4 text-right">Invoice</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-bookings-tbody" class="divide-y divide-slate-100">
+                            <!-- Populated with real customer bookings -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 5: INQUIRIES ================= -->
+        <div id="tab-inquiries" class="admin-tab-content hidden space-y-6">
+            <div>
+                <h2 class="text-xl font-bold font-serif-luxury text-white">Guest Messages & Inquiries</h2>
+                <p class="text-xs text-slate-400">Messages sent via contact form.</p>
+            </div>
+
+            <div id="admin-inquiries-list" class="space-y-4 text-slate-900">
+                <!-- Inquiries -->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Edit Room Photos Modal -->
+<div id="edit-room-modal" class="fixed inset-0 z-50 hidden modal-backdrop bg-slate-950/80 backdrop-blur-sm items-center justify-center p-4">
+    <div class="bg-white rounded-3xl overflow-hidden shadow-2xl max-w-lg w-full flex flex-col text-slate-900 text-xs">
+        <div class="p-5 bg-slate-950 text-white flex items-center justify-between border-b border-amber-900/40">
+            <h3 class="font-serif-luxury font-bold text-base">Edit Room Rates & Photos</h3>
+            <button onclick="closeModal('edit-room-modal')" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <form id="edit-room-form" onsubmit="handleEditRoomSubmit(event)" class="p-6 space-y-4">
+            <input type="hidden" name="room_id">
+            
+            <div>
+                <label class="block font-semibold text-stone-700 mb-1">Room Name</label>
+                <input type="text" name="name" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-medium outline-none" required>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block font-semibold text-stone-700 mb-1">Indian Rate (₹)</label>
+                    <input type="number" name="price_indian" class="w-full px-3 py-2 bg-amber-50 border border-amber-300 rounded-xl font-bold outline-none" required>
+                </div>
+                <div>
+                    <label class="block font-semibold text-stone-700 mb-1">NRI Rate (₹)</label>
+                    <input type="number" name="price_nri" class="w-full px-3 py-2 bg-blue-50 border border-blue-300 rounded-xl font-bold outline-none" required>
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-semibold text-stone-700 mb-1">Photo URLs (Comma-separated)</label>
+                <textarea name="images" rows="3" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-mono text-[11px] outline-none"></textarea>
+            </div>
+
+            <div class="pt-2 flex justify-end gap-2">
+                <button type="button" onclick="closeModal('edit-room-modal')" class="px-4 py-2 bg-slate-200 text-stone-700 font-bold rounded-xl">Cancel</button>
+                <button type="submit" class="kesariya-btn px-5 py-2 font-bold rounded-xl shadow">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}
