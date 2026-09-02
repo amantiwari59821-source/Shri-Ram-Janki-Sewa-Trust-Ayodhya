@@ -64,6 +64,18 @@ def generate_booking_reference():
     digits = ''.join(random.choices(string.digits, k=4))
     return f"SRJ-{year}-{digits}"
 
+@app.route('/uploads/<path:filename>')
+def serve_uploads(filename):
+    return serve_custom_static(filename)
+
+@app.route('/js/<path:filename>')
+def serve_js(filename):
+    return serve_custom_static(filename)
+
+@app.route('/css/<path:filename>')
+def serve_css(filename):
+    return serve_custom_static(filename)
+
 @app.route('/healthz')
 @app.route('/ping')
 def healthz():
