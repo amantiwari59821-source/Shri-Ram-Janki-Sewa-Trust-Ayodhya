@@ -69,8 +69,13 @@ def generate_booking_reference():
 def healthz():
     return jsonify({'status': 'healthy', 'trust': 'Shri Ram Janki Sewa Trust'}), 200
 
+from werkzeug.exceptions import HTTPException
+from flask import send_from_directory, abort
+
 @app.errorhandler(Exception)
 def handle_exception(e):
+    if isinstance(e, HTTPException):
+        return e
     import traceback
     err_tb = traceback.format_exc()
     print(f"CRITICAL FLASK EXCEPTION:\n{err_tb}", flush=True)
@@ -84,6 +89,34 @@ def handle_exception(e):
     </body>
     </html>
     """, 500
+
+# Universal Static File Server: Searches all possible directories (static/, root, uploads, js, css)
+@app.route('/static/<path:filename>')
+def serve_custom_static(filename):
+    # 1. Try standard static directory
+    std_path = os.path.join(STATIC_DIR, filename)
+    if os.path.exists(std_path) and os.path.isfile(std_path):
+        return send_from_directory(STATIC_DIR, filename)
+
+    # 2. Try root directory + filename
+    root_path = os.path.join(BASE_DIR, filename)
+    if os.path.exists(root_path) and os.path.isfile(root_path):
+        return send_from_directory(BASE_DIR, filename)
+
+    # 3. Search anywhere in project tree by basename
+    base_name = os.path.basename(filename)
+    for root, dirs, files in os.walk(BASE_DIR):
+        if base_name in files:
+            return send_from_directory(root, base_name)
+
+    # 4. Fallback for /opt/render/project/src on Render
+    render_base = '/opt/render/project/src'
+    if os.path.exists(render_base):
+        for root, dirs, files in os.walk(render_base):
+            if base_name in files:
+                return send_from_directory(root, base_name)
+
+    abort(404)
 
 @app.route('/')
 def home():
