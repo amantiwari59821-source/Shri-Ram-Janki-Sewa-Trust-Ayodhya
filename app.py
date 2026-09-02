@@ -16,6 +16,9 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp', 'gif'}
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+# Ensure database and tables exist on server startup
+init_db()
+
 TRUST_INFO = {
     'name': 'श्री राम जानकी सेवा ट्रस्ट (Shri Ram Janki Sewa Trust)',
     'location': 'Near Shri Ram Janmabhoomi Complex, Ramkot, Ayodhya Dham, Uttar Pradesh - 224123',
