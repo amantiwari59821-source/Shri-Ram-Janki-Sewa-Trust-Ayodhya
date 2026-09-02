@@ -8,7 +8,11 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
 from database import get_db, init_db
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.config['SECRET_KEY'] = 'shri-ram-janki-sewa-trust-ayodhya-2026'
 app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -50,9 +54,36 @@ def generate_booking_reference():
     digits = ''.join(random.choices(string.digits, k=4))
     return f"SRJ-{year}-{digits}"
 
+@app.route('/healthz')
+@app.route('/ping')
+def healthz():
+    return jsonify({'status': 'healthy', 'trust': 'Shri Ram Janki Sewa Trust'}), 200
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    import traceback
+    err_tb = traceback.format_exc()
+    print(f"CRITICAL FLASK EXCEPTION:\n{err_tb}", flush=True)
+    return f"""
+    <html>
+    <head><title>Diagnostic Error - Shri Ram Janki Sewa Trust</title></head>
+    <body style="font-family: sans-serif; padding: 30px; background: #fff5f5; color: #900;">
+        <h2>Diagnostic Server Log</h2>
+        <p><strong>Error:</strong> {str(e)}</p>
+        <pre style="background: #222; color: #0f0; padding: 20px; border-radius: 10px; overflow: auto;">{err_tb}</pre>
+    </body>
+    </html>
+    """, 500
+
 @app.route('/')
 def home():
-    return render_template('index.html', trust=TRUST_INFO)
+    try:
+        return render_template('index.html', trust=TRUST_INFO)
+    except Exception as e:
+        import traceback
+        err_tb = traceback.format_exc()
+        print(f"HOME ROUTE ERROR:\n{err_tb}", flush=True)
+        return handle_exception(e)
 
 @app.route('/admin')
 def admin():
