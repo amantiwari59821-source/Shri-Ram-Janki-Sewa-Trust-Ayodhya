@@ -36,7 +36,7 @@ init_db()
 TRUST_INFO = {
     'name': 'श्री राम जानकी सेवा ट्रस्ट (Shri Ram Janki Sewa Trust)',
     'location': 'Near Shri Ram Janmabhoomi Complex, Ramkot, Ayodhya Dham, Uttar Pradesh - 224123',
-    'phone': '8303333310',
+    'phone': '8303333309',
     'email': 'shriramjankisewa@gmail.com',
     'ram_mandir_distance': '1.4 km',
     'upi_id': '99198857ankeshtiwri@okhdfcbank',
@@ -63,6 +63,10 @@ def generate_booking_reference():
     year = datetime.now().year
     digits = ''.join(random.choices(string.digits, k=4))
     return f"SRJ-{year}-{digits}"
+
+@app.route('/videos/<path:filename>')
+def serve_videos(filename):
+    return serve_custom_static(filename)
 
 @app.route('/uploads/<path:filename>')
 def serve_uploads(filename):
@@ -133,7 +137,27 @@ def serve_custom_static(filename):
 @app.route('/')
 def home():
     try:
-        return render_template('index.html', trust=TRUST_INFO)
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM rooms ORDER BY id ASC")
+        rows = cursor.fetchall()
+        conn.close()
+
+        rooms = []
+        for row in rows:
+            r = dict(row)
+            try:
+                r['amenities'] = json.loads(r['amenities']) if r['amenities'] else []
+            except Exception:
+                r['amenities'] = []
+            try:
+                r['images'] = json.loads(r['images']) if r['images'] else []
+            except Exception:
+                r['images'] = []
+            r['current_price'] = r['price_indian']
+            rooms.append(r)
+
+        return render_template('index.html', trust=TRUST_INFO, rooms=rooms)
     except Exception as e:
         import traceback
         err_tb = traceback.format_exc()
@@ -193,11 +217,7 @@ def get_rooms():
         except Exception:
             r['images'] = []
         
-        if guest_type == 'NRI':
-            r['current_price'] = r['price_nri']
-        else:
-            r['current_price'] = r['price_indian']
-
+        r['current_price'] = r['price_indian']
         rooms.append(r)
 
     return jsonify({'success': True, 'count': len(rooms), 'rooms': rooms})
@@ -269,25 +289,16 @@ def create_booking():
         if not data.get(field):
             return jsonify({'success': False, 'message': f'Field {field} is required'}), 400
 
-    guest_type = data.get('guest_type', 'Indian')
     id_proof_number = data.get('id_proof_number', '').strip()
-    country_name = data.get('country_name', 'India').strip()
     guest_phone = data.get('guest_phone', '').strip()
+    guest_type = 'Indian'
+    country_name = 'India'
+    id_proof_type = 'Aadhaar / Govt ID'
 
-    # Validation based on Citizen type
-    if guest_type == 'Indian':
-        if not id_proof_number:
-            return jsonify({'success': False, 'message': 'Aadhaar Card Number is required for Indian citizens'}), 400
-        if not guest_phone:
-            return jsonify({'success': False, 'message': 'Mobile Number is required for Indian citizens'}), 400
-        id_proof_type = 'Aadhaar Card'
-        country_name = 'India'
-    else:
-        if not country_name or country_name.lower() == 'india':
-            country_name = data.get('country_name', 'Foreign / NRI')
-        if not id_proof_number:
-            return jsonify({'success': False, 'message': 'Passport / Foreign Govt ID is required for NRI guests'}), 400
-        id_proof_type = 'Passport / Foreign ID'
+    if not id_proof_number:
+        return jsonify({'success': False, 'message': 'Aadhaar Card / Govt ID is required for verification'}), 400
+    if not guest_phone:
+        return jsonify({'success': False, 'message': 'Mobile / WhatsApp Number is required'}), 400
 
     room_id = int(data['room_id'])
 
@@ -310,7 +321,7 @@ def create_booking():
     except Exception:
         total_nights = 1
 
-    price_per_unit = float(room_dict['price_nri']) if guest_type == 'NRI' else float(room_dict['price_indian'])
+    price_per_unit = float(room_dict['price_indian'])
     guests_count = int(data.get('guests_count', 1))
 
     if 'Dormitory' in room_dict['category']:

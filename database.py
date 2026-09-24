@@ -1,7 +1,6 @@
 import sqlite3
 import os
 import json
-from static_assets import AC_PHOTO_B64, NON_AC_PHOTO_B64, DORM_PHOTO_B64
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'hotel.db')
 
@@ -26,11 +25,15 @@ def init_db(force_reseed=False):
             room_number TEXT UNIQUE NOT NULL,
             name TEXT NOT NULL,
             category TEXT NOT NULL,
+            tagline TEXT NOT NULL,
             price_indian REAL NOT NULL,
             price_nri REAL NOT NULL,
             price_per_night REAL NOT NULL,
             capacity INTEGER NOT NULL,
+            capacity_text TEXT NOT NULL,
             bed_type TEXT NOT NULL,
+            floor TEXT NOT NULL,
+            bath_type TEXT NOT NULL,
             size_sqft INTEGER NOT NULL,
             view_type TEXT NOT NULL,
             description TEXT NOT NULL,
@@ -38,7 +41,7 @@ def init_db(force_reseed=False):
             images TEXT NOT NULL,
             status TEXT DEFAULT 'Available',
             rating REAL DEFAULT 4.9,
-            reviews_count INTEGER DEFAULT 18,
+            reviews_count INTEGER DEFAULT 24,
             featured INTEGER DEFAULT 0,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -89,83 +92,161 @@ def init_db(force_reseed=False):
         )
     """)
 
-    cursor.execute('SELECT COUNT(*) FROM rooms')
-    if cursor.fetchone()[0] == 0:
-        sample_rooms = [
-            (
-                '101',
-                'AC Room (वातानुकूलित कक्ष)',
-                'AC Room',
-                3000.0,
-                5500.0,
-                3000.0,
-                2,
-                '1 Double Bed / 2 Twin Beds',
-                320,
-                'Ayodhya Mandir Area View',
-                'Clean, comfortable fully air-conditioned room with attached modern bathroom, 24/7 hot & cold water, high-speed Wi-Fi, and peaceful sacred ambiance.',
-                json.dumps(['Air Conditioning (AC)', 'Attached Bathroom', '24/7 Hot & Cold Water', 'Free High-Speed Wi-Fi', 'Clean Linen & Towels', 'Electric Kettle', 'Power Backup']),
-                json.dumps([AC_PHOTO_B64, DORM_PHOTO_B64, NON_AC_PHOTO_B64]),
-                'Available',
-                4.9,
-                42,
-                1
-            ),
-            (
-                '102',
-                'Non-AC Room (नॉन-एसी कक्ष)',
-                'Non-AC Room',
-                1500.0,
-                3500.0,
-                1500.0,
-                2,
-                '1 Double Bed / 2 Single Beds',
-                280,
-                'Peaceful Courtyard View',
-                'Well-ventilated clean non-AC room with high-speed ceiling fans, attached clean washroom, 24/7 water supply, and comfortable bedding for yatris.',
-                json.dumps(['Ceiling Fan & Ventilation', 'Attached Washroom', '24/7 Water Supply', 'Free Wi-Fi', 'Clean Bedsheets & Pillows', 'Power Backup']),
-                json.dumps([NON_AC_PHOTO_B64, DORM_PHOTO_B64, AC_PHOTO_B64]),
-                'Available',
-                4.8,
-                35,
-                1
-            ),
-            (
-                '103',
-                'Dormitory Hall (डॉर्मिटरी / हाल)',
-                'Dormitory',
-                200.0,
-                1000.0,
-                200.0,
-                1,
-                'Single Bed / Bunk Bed in Hall',
-                750,
-                'Sacred Trust Hall View',
-                'Economical and clean dormitory bedding setup with individual locker, clean mattress, common sanitized washrooms, and safe space for solo yatris & groups.',
-                json.dumps(['Single Bedding / Mattress', 'Shared Clean Bathrooms', 'Personal Locker Facility', '24/7 Hot Water in Bathrooms', 'Free Wi-Fi in Lounge', 'Purified RO Drinking Water']),
-                json.dumps([DORM_PHOTO_B64, AC_PHOTO_B64, NON_AC_PHOTO_B64]),
-                'Available',
-                4.95,
-                88,
-                1
-            )
-        ]
-        cursor.executemany("""
-            INSERT INTO rooms (
-                room_number, name, category, price_indian, price_nri,
-                price_per_night, capacity, bed_type, size_sqft, view_type,
-                description, amenities, images, status, rating, reviews_count, featured
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, sample_rooms)
-    else:
-        # Update existing room images to b64 photos
-        cursor.execute("UPDATE rooms SET images = ? WHERE category LIKE '%AC%' AND category NOT LIKE '%Non%'", (json.dumps([AC_PHOTO_B64, DORM_PHOTO_B64, NON_AC_PHOTO_B64]),))
-        cursor.execute("UPDATE rooms SET images = ? WHERE category LIKE '%Non-AC%'", (json.dumps([NON_AC_PHOTO_B64, DORM_PHOTO_B64, AC_PHOTO_B64]),))
-        cursor.execute("UPDATE rooms SET images = ? WHERE category LIKE '%Dormitory%'", (json.dumps([DORM_PHOTO_B64, AC_PHOTO_B64, NON_AC_PHOTO_B64]),))
+    # 6 Exact Room Types with User's Real Uploaded Photos
+    sample_rooms = [
+        (
+            '101',
+            '2 Bed AC Room',
+            '2 Bed AC',
+            'Compact AC stay for two pilgrims',
+            1299.0,
+            1299.0,
+            1299.0,
+            2,
+            '2 Guests',
+            'Double Bed',
+            'Ground / 1st Floor',
+            'Western Attached Let-Bath',
+            280,
+            'Ayodhya Mandir Area View',
+            'Real YatraDham listing category with a double bed, western attached let-bath, and ground / first floor allocation. Designed for couples or two family members seeking a comfortable Ayodhya stay.',
+            json.dumps(['Air Conditioning (AC)', 'Double Bed', 'Western Attached Let-Bath', 'Food Facility Available', 'Free Parking', 'CCTV Security', '24/7 Water']),
+            json.dumps(['/static/uploads/hotel_photo_0d4190c33a.jpeg', '/static/uploads/hotel_photo_992c83feca.jpeg', '/static/uploads/hotel_photo_ccee89aeb6.jpeg']),
+            'Available',
+            4.9,
+            42,
+            1
+        ),
+        (
+            '102',
+            '3 Bed AC Room',
+            '3 Bed AC',
+            'AC family room with double + single bed',
+            1499.0,
+            1499.0,
+            1499.0,
+            3,
+            '3 Guests',
+            'Double Bed + Single Bed',
+            'Ground / 1st Floor',
+            'Western Attached Let-Bath',
+            320,
+            'Sacred Courtyard View',
+            'A practical AC family room category with one double bed, one single bed, western attached let-bath, and ground / first floor allocation as mentioned on the booking listing.',
+            json.dumps(['Air Conditioning (AC)', 'Double Bed', 'Single Bed', 'Western Attached Let-Bath', 'Hot Water Geyser', 'Clean Drinking Water', 'Free Parking']),
+            json.dumps(['/static/uploads/hotel_photo_992c83feca.jpeg', '/static/uploads/hotel_photo_0d4190c33a.jpeg', '/static/uploads/hotel_photo_ccee89aeb6.jpeg']),
+            'Available',
+            4.9,
+            38,
+            1
+        ),
+        (
+            '103',
+            '3 Bed Non AC Room',
+            '3 Bed Non-AC',
+            'Budget family room with common let-bath',
+            1099.0,
+            1099.0,
+            1099.0,
+            3,
+            '3 Guests',
+            'Double Bed + Single Bed',
+            'Ground / 1st Floor',
+            'Indian or Western Common Let-Bath',
+            300,
+            'Peaceful Trust Garden View',
+            'Affordable non-AC option listed with one double bed, one single bed, and Indian or western common let-bath. Suitable for value-conscious yatris and small families.',
+            json.dumps(['Ceiling Fan & High Ventilation', 'Double Bed', 'Single Bed', 'Common Let-Bath', 'Satvik Food Facility', 'CCTV Surveillance', 'Purified RO Water']),
+            json.dumps(['/static/uploads/hotel_photo_ccee89aeb6.jpeg', '/static/uploads/hotel_photo_992c83feca.jpeg', '/static/uploads/hotel_photo_0d4190c33a.jpeg']),
+            'Available',
+            4.8,
+            29,
+            1
+        ),
+        (
+            '104',
+            '4 Bed AC Room',
+            '4 Bed AC',
+            'Spacious AC room with geyser',
+            1799.0,
+            1799.0,
+            1799.0,
+            4,
+            '4 Guests',
+            '2 Double Beds',
+            '1st Floor',
+            'Western Attached Let-Bath',
+            380,
+            'Ayodhya Mandir Area View',
+            'Four-guest AC room category with two double beds, geyser facility, western attached let-bath, and first-floor allocation for a comfortable family pilgrimage stay.',
+            json.dumps(['Air Conditioning (AC)', '2 Double Beds', 'Hot Water Geyser', 'Attached Let-Bath', 'Food Facility', 'Free Parking', 'Power Backup']),
+            json.dumps(['/static/uploads/hotel_photo_0d4190c33a.jpeg', '/static/uploads/hotel_photo_992c83feca.jpeg', '/static/uploads/hotel_photo_aa46c7b60b.png']),
+            'Available',
+            4.95,
+            56,
+            1
+        ),
+        (
+            '105',
+            '5 Bed AC Room',
+            '5 Bed AC',
+            'Large AC room for group stays',
+            1999.0,
+            1999.0,
+            1999.0,
+            5,
+            '5 Guests',
+            '2 Double Beds + Single Bed',
+            '1st Floor',
+            'Western Attached Let-Bath',
+            450,
+            'Upper Floor Terrace View',
+            'Five-guest AC room category with two double beds, one single bed, western attached let-bath, and first-floor allocation for group darshan visits.',
+            json.dumps(['Air Conditioning (AC)', '2 Double Beds', '1 Single Bed', 'Western Attached Let-Bath', 'Clean Drinking Water', 'CCTV Security', 'Parking']),
+            json.dumps(['/static/uploads/hotel_photo_992c83feca.jpeg', '/static/uploads/hotel_photo_0d4190c33a.jpeg', '/static/uploads/hotel_photo_ccee89aeb6.jpeg']),
+            'Available',
+            4.9,
+            34,
+            1
+        ),
+        (
+            '106',
+            'AC Dormitory Hall',
+            'Dormitory',
+            'Group hall for up to 25 persons',
+            560.0,
+            560.0,
+            560.0,
+            25,
+            '25 Person Capacity',
+            'Mattress Only (Per Bed)',
+            'Dormitory Floor',
+            'Indian or Western Common Let-Bath',
+            850,
+            'Sacred Trust Hall View',
+            'Dormitory accommodation listed with 25-person capacity, mattress-only arrangement, and Indian or western common let-bath for large groups and yatri batches.',
+            json.dumps(['AC Dormitory Hall', 'Single Bedding / Mattress', 'Common Let-Bath', 'Satvik Bhojan Coordination', 'Locker Facility', '24/7 Hot Water']),
+            json.dumps(['/static/uploads/hotel_photo_aa46c7b60b.png', '/static/uploads/hotel_photo_0d4190c33a.jpeg', '/static/uploads/hotel_photo_992c83feca.jpeg']),
+            'Available',
+            4.95,
+            112,
+            1
+        )
+    ]
+
+    cursor.execute('DELETE FROM rooms')
+    cursor.executemany("""
+        INSERT INTO rooms (
+            room_number, name, category, tagline, price_indian, price_nri,
+            price_per_night, capacity, capacity_text, bed_type, floor, bath_type,
+            size_sqft, view_type, description, amenities, images, status,
+            rating, reviews_count, featured
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, sample_rooms)
 
     conn.commit()
     conn.close()
-    print("Database re-initialized cleanly with embedded photos.")
+    print("Database seeded with 6 exact rooms from shrisitaramsevatrust.")
 
 if __name__ == '__main__':
     init_db(force_reseed=True)

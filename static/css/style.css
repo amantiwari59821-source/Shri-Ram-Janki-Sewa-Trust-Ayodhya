@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
+
+:root {
+    --mandir-maroon: #4b0718;
+    --mandir-dark: #2a0611;
+    --mandir-deep: #180209;
+    --mandir-red: #7d1128;
+    --mandir-gold: #d7a84f;
+    --mandir-gold-dark: #b7812d;
+    --mandir-gold-light: #f5d891;
+    --mandir-bg: #fffaf1;
+    --mandir-card: #ffffff;
+    --mandir-border: #ead8b6;
+    --mandir-border-gold: rgba(215, 168, 79, 0.35);
+}
+
+body {
+    background-color: #fffaf1;
+    color: #2a0611;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+}
+
+.font-serif-mandir {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-cinzel {
+    font-family: 'Cinzel', serif;
+}
+
+/* Sacred Temple Hero Background */
+.mandir-hero-bg {
+    background-color: #2a0611;
+    background-image: 
+        radial-gradient(circle at 50% 25%, rgba(215, 168, 79, 0.28), transparent 45%),
+        radial-gradient(circle at 20% 10%, rgba(215, 168, 79, 0.15), transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(125, 17, 40, 0.45), transparent 40%);
+    position: relative;
+}
+
+.mandir-hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(24, 2, 9, 0.75) 0%, rgba(42, 6, 17, 0.85) 60%, #fffaf1 100%);
+    pointer-events: none;
+}
+
+/* Gold Gradient Text */
+.gold-gradient-text {
+    background: linear-gradient(135deg, #fff0ad 0%, #d7a84f 50%, #b7812d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mandir-gradient-text {
+    background: linear-gradient(135deg, #d7a84f 0%, #f5d891 50%, #d7a84f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Sacred Buttons */
+.mandir-btn-gold {
+    background: linear-gradient(135deg, #d7a84f 0%, #c9963b 50%, #b7812d 100%);
+    color: #180209;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(215, 168, 79, 0.35);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #f5d891;
+}
+.mandir-btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(215, 168, 79, 0.5);
+    background: linear-gradient(135deg, #f5d891 0%, #d7a84f 50%, #c9963b 100%);
+}
+
+.mandir-btn-maroon {
+    background: linear-gradient(135deg, #7d1128 0%, #4b0718 50%, #2a0611 100%);
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(75, 7, 24, 0.25);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(215, 168, 79, 0.35);
+}
+.mandir-btn-maroon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(75, 7, 24, 0.4);
+    background: linear-gradient(135deg, #921731 0%, #7d1128 50%, #4b0718 100%);
+}
+
+.mandir-btn-outline {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    color: #ffffff;
+    border: 1px solid rgba(215, 168, 79, 0.45);
+    transition: all 0.2s ease;
+}
+.mandir-btn-outline:hover {
+    background: rgba(215, 168, 79, 0.18);
+    border-color: #d7a84f;
+    color: #f5d891;
+    transform: translateY(-2px);
+}
+
+/* Cards & Badges */
+.mandir-card {
+    background: #ffffff;
+    border: 1px solid rgba(215, 168, 79, 0.3);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(75, 7, 24, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mandir-card:hover {
+    transform: translateY(-4px);
+    border-color: #d7a84f;
+    box-shadow: 0 20px 40px rgba(75, 7, 24, 0.12), 0 0 20px rgba(215, 168, 79, 0.15);
+}
+
+.mandir-badge {
+    background: rgba(75, 7, 24, 0.06);
+    color: #7d1128;
+    border: 1px solid rgba(215, 168, 79, 0.35);
+    border-radius: 9999px;
+    font-weight: 700;
+}
+
+.mandir-gold-badge {
+    background: rgba(215, 168, 79, 0.15);
+    color: #7d1128;
+    border: 1px solid #d7a84f;
+    border-radius: 9999px;
+    font-weight: 700;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #fffaf1;
+}
+::-webkit-scrollbar-thumb {
+    background: #d7a84f;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #b7812d;
+}

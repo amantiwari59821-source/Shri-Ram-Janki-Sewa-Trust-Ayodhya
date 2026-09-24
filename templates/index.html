@@ -1,0 +1,682 @@
+{% extends 'base.html' %}
+
+{% block title %}श्री राम जानकी सेवा ट्रस्ट, अयोध्या धाम | Hotel Near Ram Mandir & Hanuman Garhi{% endblock %}
+
+{% block content %}
+<!-- ============================================
+     1. SACRED HERO SECTION (Exact Matching shrisitaramsevatrust.com)
+     ============================================ -->
+<section class="relative mandir-hero-bg text-white pt-24 pb-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div class="max-w-6xl mx-auto text-center space-y-6 relative z-10">
+        
+        <!-- Trust Badge -->
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#180209]/85 backdrop-blur-md border border-[#d7a84f]/45 text-[#f5d891] text-xs font-bold tracking-wider shadow-2xl animate-fade-in">
+            <i class="fa-solid fa-om text-[#d7a84f]"></i> श्री राम जानकी सेवा ट्रस्ट (पंजीकृत) • अयोध्या धाम
+        </div>
+
+        <!-- Sacred Ayodhya Darshan Top Video Showcase (Positioned Above Heading) -->
+        <div class="max-w-3xl mx-auto my-3 animate-fade-in">
+            <div class="relative w-full aspect-video rounded-3xl overflow-hidden border-2 sm:border-3 border-[#d7a84f] shadow-[0_0_50px_rgba(215,168,79,0.45)] bg-black group">
+                <video 
+                    id="hero-top-video"
+                    class="w-full h-full object-cover"
+                    autoplay 
+                    muted 
+                    playsinline 
+                    loop 
+                    controls>
+                    <source src="/static/videos/ayodhya_darshan_intro.mp4" type="video/mp4">
+                    <source src="/videos/ayodhya_darshan_intro.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+                
+                <!-- Overlay Header Badge -->
+                <div class="absolute top-3 left-3 bg-[#180209]/85 backdrop-blur-md border border-[#d7a84f]/50 px-3.5 py-1.5 rounded-full text-[11px] text-[#f5d891] font-bold flex items-center gap-2 pointer-events-none shadow-lg">
+                    <i class="fa-solid fa-circle-play text-[#d7a84f] animate-pulse"></i> अयोध्या दर्शन एवं अतिथि भवन
+                </div>
+
+                <!-- Sound Control Toggle Button -->
+                <button type="button" onclick="toggleHeroTopVideoMute()" class="absolute bottom-3 right-3 bg-[#180209]/85 backdrop-blur-md border border-[#d7a84f]/60 hover:bg-[#d7a84f] hover:text-[#180209] text-amber-200 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-xl z-20 cursor-pointer">
+                    <i id="hero-sound-icon" class="fa-solid fa-volume-xmark text-[#d7a84f]"></i>
+                    <span id="hero-sound-text">ध्वनि चालू करें (Unmute)</span>
+                </button>
+            </div>
+            <div class="flex items-center justify-center gap-2 text-[11px] text-amber-200/80 mt-2 font-light">
+                <i class="fa-solid fa-sparkles text-[#d7a84f]"></i>
+                <span>दिव्य अयोध्या धाम दर्शन • श्री राम जन्मभूमि (1.4 km) • हनुमान गढ़ी (1.2 km)</span>
+            </div>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif-mandir leading-tight max-w-4xl mx-auto">
+            श्री राम जन्मभूमि के निकट <br>
+            <span class="gold-gradient-text italic">पवित्र एवं शांत अतिथि निवास</span>
+        </h1>
+
+        <p class="text-amber-100/90 text-xs sm:text-sm max-w-2xl mx-auto font-light leading-relaxed">
+            अयोध्या धाम दर्शन हेतु पधारने वाले सभी श्रद्धालुओं एवं परिवारों के लिए A.C. Rooms, Non-A.C. Rooms, AC Dormitory Hall, Satvik Food & Parking की उत्तम व्यवस्था।
+        </p>
+
+        <!-- Quick Trust Pill Features -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-1 text-[11px] text-amber-200">
+            <span class="px-3.5 py-1.5 rounded-full bg-[#180209]/60 border border-[#d7a84f]/30 flex items-center gap-1.5"><i class="fa-solid fa-gopuram text-[#d7a84f]"></i> 1.4 km to Ram Mandir</span>
+            <span class="px-3.5 py-1.5 rounded-full bg-[#180209]/60 border border-[#d7a84f]/30 flex items-center gap-1.5"><i class="fa-solid fa-place-of-worship text-[#d7a84f]"></i> 1.2 km to Hanuman Garhi</span>
+            <span class="px-3.5 py-1.5 rounded-full bg-[#180209]/60 border border-[#d7a84f]/30 flex items-center gap-1.5"><i class="fa-solid fa-utensils text-[#d7a84f]"></i> Satvik Food Facility</span>
+            <span class="px-3.5 py-1.5 rounded-full bg-[#180209]/60 border border-[#d7a84f]/30 flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-[#d7a84f]"></i> 24/7 CCTV & Security</span>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <a href="#rooms-section" class="mandir-btn-gold px-8 py-3.5 text-xs font-bold rounded-2xl flex items-center gap-2 shadow-2xl">
+                <i class="fa-solid fa-bed"></i> Book Rooms (कमरे देखें एवं बुक करें)
+            </a>
+            <button onclick="openVideoModal()" class="mandir-btn-outline px-6 py-3.5 text-xs font-semibold rounded-2xl flex items-center gap-2">
+                <i class="fa-solid fa-circle-play text-[#d7a84f] text-base"></i> Watch Ayodhya Darshan Video
+            </button>
+            <a href="tel:8303333309" class="mandir-btn-outline px-6 py-3.5 text-xs font-semibold rounded-2xl flex items-center gap-2">
+                <i class="fa-solid fa-phone text-[#d7a84f]"></i> Helpline: 8303333309
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     2. ROOMS INVENTORY (6 EXACT ROOMS)
+     ============================================ -->
+<section id="rooms-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#ead8b6] pb-6">
+        <div>
+            <span class="text-xs font-bold tracking-widest text-[#7d1128] uppercase font-cinzel">Room Categories & Inventory</span>
+            <h2 class="text-3xl sm:text-4xl font-bold font-serif-mandir text-[#2a0611] mt-1">
+                A.C. Rooms, Non-A.C. Rooms & Dormitory
+            </h2>
+            <p class="text-stone-600 text-xs mt-1">Clear inventory options for yatris: A.C. rooms, non-A.C. rooms, dormitory stay, A.C. bed options and food facility.</p>
+        </div>
+
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#fff8eb] rounded-2xl border border-[#d7a84f]/40 text-[#7d1128] font-bold text-xs shadow-sm">
+            <i class="fa-solid fa-shield-halved text-[#d7a84f]"></i> सरकारी पहचान पत्र (Aadhaar / Govt ID) सत्यापन अनिवार्य
+        </div>
+    </div>
+
+    <!-- Live Dynamic Pricing Summary Cards -->
+    <div id="quick-price-summary" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
+        {% if rooms %}
+            {% for r in rooms %}
+                {% set isDorm = 'dormitory' in r.category.lower() %}
+                <div class="p-4 bg-white rounded-2xl border border-[#d7a84f]/35 shadow-sm flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] font-bold text-[#7d1128] block">{{ r.category }}</span>
+                        <strong class="text-sm font-serif-mandir text-[#2a0611]">{{ r.name.split('(')[0] }}</strong>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-bold text-[#7d1128] font-cinzel text-base">₹{{ '{:,.0f}'.format(r.price_indian) }}</span>
+                        <span class="text-[10px] text-stone-500 block">{{ '/bed/night' if isDorm else '/night' }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- 6 Dynamic Room Cards -->
+    <div id="rooms-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-2">
+        {% if rooms %}
+            {% for r in rooms %}
+                {% set isDorm = 'dormitory' in r.category.lower() %}
+                {% set mainImg = r.images[0] if (r.images and r.images|length > 0) else '/static/uploads/hotel_photo_0d4190c33a.jpeg' %}
+                <div class="mandir-card overflow-hidden flex flex-col group">
+                    <!-- Image Showcase -->
+                    <div class="relative h-60 overflow-hidden bg-slate-900">
+                        <img src="{{ mainImg }}" alt="{{ r.name }}" onerror="this.src='/static/uploads/hotel_photo_0d4190c33a.jpeg'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#180209] via-transparent to-black/30"></div>
+                        
+                        <!-- Top Badges -->
+                        <div class="absolute top-3.5 left-3.5 right-3.5 flex justify-between items-center">
+                            <span class="px-3 py-1 bg-[#2a0611]/85 text-[#f5d891] border border-[#d7a84f]/40 backdrop-blur-md rounded-full text-[10px] font-bold tracking-wider uppercase flex items-center gap-1">
+                                <i class="fa-solid fa-om text-[#d7a84f]"></i> {{ r.category }}
+                            </span>
+                            <span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 backdrop-blur-md rounded-full text-[10px] font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check"></i> {{ r.status }}
+                            </span>
+                        </div>
+
+                        <!-- Bottom Image Info -->
+                        <div class="absolute bottom-3 left-3.5 right-3.5 flex justify-between items-end text-white">
+                            <div>
+                                <span class="text-[11px] text-[#f5d891] flex items-center gap-1 font-medium">
+                                    <i class="fa-solid fa-location-dot text-[#d7a84f]"></i> {{ r.view_type }}
+                                </span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] text-stone-300 uppercase tracking-wider">Devotee Sewa Rate</div>
+                                <div class="text-xl font-bold text-[#f5d891] font-cinzel">₹{{ '{:,.0f}'.format(r.price_indian) }}<span class="text-xs font-normal text-stone-200">{{ '/bed' if isDorm else '/nt' }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Content -->
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif-mandir font-bold text-lg text-[#2a0611] leading-snug">{{ r.name }}</h3>
+                            </div>
+                            <p class="text-xs text-stone-600 line-clamp-2 leading-relaxed font-light">{{ r.description }}</p>
+                            
+                            <!-- Capacity & Bed -->
+                            <div class="flex items-center gap-4 py-2 border-y border-[#ead8b6]/60 text-[11px] text-stone-700">
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-user-group text-[#b7812d]"></i> {{ 'Hall Bedding' if isDorm else 'Max ' ~ r.capacity ~ ' Guests' }}</span>
+                                <span>•</span>
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-bed text-[#b7812d]"></i> {{ r.bed_type }}</span>
+                            </div>
+
+                            <!-- Inclusions / Amenities chips -->
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                {% for a in r.amenities[:4] %}
+                                    <span class="px-2.5 py-1 bg-[#fff8eb] text-[#7d1128] border border-[#ead8b6] rounded-lg text-[10px] font-semibold flex items-center gap-1">
+                                        <i class="fa-solid fa-check text-[#b7812d] text-[9px]"></i> {{ a }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="pt-2 flex gap-2">
+                            <button onclick="openRoomDetailModal({{ r.id }})" class="px-3.5 py-2.5 bg-[#fff8eb] hover:bg-[#fff3d8] text-[#4b0718] border border-[#d7a84f]/40 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1 flex-1">
+                                <i class="fa-solid fa-circle-info text-[#b7812d]"></i> Details
+                            </button>
+                            <button onclick="startBookingFlow({{ r.id }})" class="mandir-btn-gold px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 flex-[1.4]">
+                                <i class="fa-solid fa-bolt"></i> Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+
+<!-- ============================================
+     3. SACRED AYODHYA DARSHAN & PROPERTY VIDEO SECTION
+     ============================================ -->
+<section id="video-tour-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mandir-card p-6 sm:p-10 bg-gradient-to-br from-[#2a0611] via-[#180209] to-[#2a0611] text-white border-2 border-[#d7a84f]/40 relative overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-5 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#d7a84f]/15 border border-[#d7a84f]/40 text-[#f5d891] text-[11px] font-bold uppercase tracking-wider font-cinzel">
+                    <i class="fa-solid fa-video text-[#d7a84f]"></i> Video Darshan Tour
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold font-serif-mandir text-white leading-snug">
+                    A Divine Stay with Modern Facilities in Ayodhya Dham
+                </h2>
+                <p class="text-xs text-amber-100/80 leading-relaxed font-light">
+                    Ayodhya Darshan promo featuring Shri Ram Janmabhoomi, Hanuman Garhi, Kanak Bhawan, and guest stay facilities at Shri Ram Janki Sewa Trust near Ramkot.
+                </p>
+
+                <div class="space-y-2 pt-2 text-xs text-stone-300">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-circle-check text-[#d7a84f]"></i>
+                        <span>Ground & 1st Floor Rooms with Clean Attached Bathrooms</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-circle-check text-[#d7a84f]"></i>
+                        <span>Satvik Food, RO Water & 24/7 Hot Water Geyser</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-circle-check text-[#d7a84f]"></i>
+                        <span>1.4 km from Ram Janmabhoomi Mandir Complex</span>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <a href="#rooms-section" class="mandir-btn-gold px-6 py-2.5 rounded-xl font-bold text-xs inline-flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-calendar-check"></i> Book Your Stay
+                    </a>
+                </div>
+            </div>
+
+            <!-- Video Player Embed -->
+            <div class="lg:col-span-7">
+                <div class="relative w-full aspect-video rounded-2xl overflow-hidden border-2 border-[#d7a84f]/60 shadow-[0_0_35px_rgba(215,168,79,0.35)] bg-black group">
+                    <video 
+                        id="main-property-video"
+                        class="w-full h-full object-cover"
+                        autoplay 
+                        muted 
+                        playsinline 
+                        loop 
+                        controls>
+                        <source src="/static/videos/ayodhya_darshan_intro.mp4" type="video/mp4">
+                        <source src="/videos/ayodhya_darshan_intro.mp4" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                    </video>
+                    <div class="absolute top-3 left-3 bg-[#180209]/80 backdrop-blur-md border border-[#d7a84f]/40 px-3 py-1 rounded-full text-[10px] text-[#f5d891] font-bold flex items-center gap-1.5 pointer-events-none">
+                        <i class="fa-solid fa-om text-[#d7a84f]"></i> Shri Ram Janki Sewa Trust • Ayodhya
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     4. SATVIK SERVICES & LOCAL TRANSPORT (from shrisitaramsevatrust)
+     ============================================ -->
+<section class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div class="text-center max-w-2xl mx-auto space-y-1.5">
+        <span class="text-xs font-bold tracking-widest text-[#7d1128] uppercase font-cinzel">Guest Facilities & Sewa</span>
+        <h2 class="text-3xl font-bold font-serif-mandir text-[#2a0611]">Satvik Food & Travel Assistance</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Satvik Food -->
+        <div class="mandir-card p-6 sm:p-8 bg-white border border-[#ead8b6] space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#fff8eb] border border-[#ead8b6] text-[#7d1128] flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-utensils"></i>
+            </div>
+            <div>
+                <span class="text-[11px] font-bold text-[#b7812d] uppercase tracking-wider">Homely Bhojan</span>
+                <h3 class="text-xl font-bold font-serif-mandir text-[#2a0611] mt-0.5">Satvik Food Available</h3>
+            </div>
+            <p class="text-xs text-stone-600 leading-relaxed font-light">
+                Clean, homely and satvik vegetarian meals are coordinated for guests so your Ayodhya pilgrimage remains comfortable, healthy and devotional.
+            </p>
+            <div class="space-y-2 text-xs text-stone-700 pt-1">
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-[#b7812d]"></i> Breakfast, Lunch & Dinner support</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-[#b7812d]"></i> Family-friendly fresh vegetarian meals</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-[#b7812d]"></i> Group & Yatri batch bhojan coordination</div>
+            </div>
+        </div>
+
+        <!-- Transportation -->
+        <div class="mandir-card p-6 sm:p-8 bg-white border border-[#ead8b6] space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#fff8eb] border border-[#ead8b6] text-[#7d1128] flex items-center justify-center text-2xl">
+                <i class="fa-solid fa-car"></i>
+            </div>
+            <div>
+                <span class="text-[11px] font-bold text-[#b7812d] uppercase tracking-wider">Local Mobility</span>
+                <h3 class="text-xl font-bold font-serif-mandir text-[#2a0611] mt-0.5">Bike, Car & Local Transport Assistance</h3>
+            </div>
+            <p class="text-xs text-stone-600 leading-relaxed font-light">
+                Devotees can request bike, car or e-rickshaw assistance for railway station pickup, airport transfer, Ram Mandir darshan routes, and local Ayodhya visits.
+            </p>
+            <div class="space-y-2 text-xs text-stone-700 pt-1">
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-[#b7812d]"></i> Ayodhya Dham Junction (2.1 km) pickup help</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-[#b7812d]"></i> Maharishi Valmiki Airport (AYJ) transfer support</div>
+                <div class="flex items-center gap-2"><i class="fa-solid fa-check text-[#b7812d]"></i> Direct guidance to Sugriva Qila & Ramkot routes</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     5. LIVE AARTI TIMINGS & SACRED SCHEDULE
+     ============================================ -->
+<section id="aarti-section" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-gradient-to-br from-[#2a0611] via-[#180209] to-[#2a0611] rounded-3xl p-8 sm:p-10 text-white shadow-2xl border border-[#d7a84f]/40 space-y-6 relative overflow-hidden">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#d7a84f]/25 pb-4">
+            <div>
+                <div class="flex items-center gap-2 text-[#d7a84f] text-xs font-bold uppercase tracking-widest font-cinzel">
+                    <i class="fa-solid fa-bell"></i> Shri Ram Janmabhoomi Mandir
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold font-serif-mandir text-white mt-1">
+                    Daily Aarti Timings (आरती समय-सारणी)
+                </h2>
+            </div>
+            <div class="text-xs text-[#f5d891] font-semibold bg-[#d7a84f]/15 px-4 py-2 rounded-xl border border-[#d7a84f]/35">
+                <i class="fa-solid fa-location-dot mr-1 text-[#d7a84f]"></i> Trust is 1.4 km from Mandir
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {% for aarti in trust.aarti_timings %}
+                <div class="bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-[#d7a84f]/25 space-y-2 hover:border-[#d7a84f] transition-all">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[#d7a84f] text-lg"><i class="fa-solid {{ aarti.icon }}"></i></span>
+                        <span class="px-3 py-1 bg-[#d7a84f] text-[#180209] text-xs font-extrabold rounded-full font-mono">{{ aarti.time }}</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-white font-serif-mandir">{{ aarti.name }}</h3>
+                    <p class="text-[11px] text-amber-100/70 font-light">{{ aarti.significance }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     5.5 SACRED SEWA & DONATION SECTION (दान एवं सहयोग)
+     ============================================ -->
+<section id="donation-section" class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mandir-card p-6 sm:p-10 bg-gradient-to-br from-[#2a0611] via-[#180209] to-[#2a0611] text-white border-2 border-[#d7a84f]/60 shadow-[0_0_40px_rgba(215,168,79,0.35)] relative overflow-hidden">
+        
+        <!-- Sacred Background Decorative Watermark -->
+        <div class="absolute -right-16 -bottom-16 opacity-5 pointer-events-none text-[#d7a84f] text-[200px]">
+            <i class="fa-solid fa-om"></i>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            
+            <!-- Column 1: Divine Shri Ram Ji Photo -->
+            <div class="lg:col-span-4 flex flex-col items-center text-center space-y-3">
+                <div class="relative w-56 h-56 sm:w-64 sm:h-64 rounded-3xl overflow-hidden border-2 sm:border-3 border-[#d7a84f] shadow-[0_0_35px_rgba(215,168,79,0.5)] group bg-[#180209]">
+                    <img src="/static/images/shri_ram_ji.jpg" alt="Bhagwan Shri Ram Chandra Ji - Ayodhya Dham" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#180209]/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-2 inset-x-0 text-center">
+                        <span class="px-3 py-1 bg-[#180209]/90 border border-[#d7a84f]/60 rounded-full text-[11px] font-bold text-[#f5d891] shadow">
+                            🌸 सियावर रामचंद्र की जय 🌸
+                        </span>
+                    </div>
+                </div>
+                <div class="text-[11px] text-amber-200/90 font-cinzel tracking-wider">
+                    श्री राम लला • अयोध्या धाम
+                </div>
+            </div>
+
+            <!-- Column 2: Donation Call & Sewa Details -->
+            <div class="lg:col-span-5 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#d7a84f]/20 border border-[#d7a84f]/50 text-[#f5d891] text-[11px] font-bold uppercase tracking-wider font-cinzel">
+                    <i class="fa-solid fa-hands-praying text-[#d7a84f]"></i> ट्रस्ट सेवा एवं दान (Donation)
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-bold font-serif-mandir text-white leading-snug">
+                    श्री राम जानकी सेवा ट्रस्ट में <br>
+                    <span class="gold-gradient-text italic">दान एवं सहयोग अर्पित करें</span>
+                </h2>
+
+                <p class="text-xs text-amber-100/90 leading-relaxed font-light">
+                    अयोध्या धाम दर्शन हेतु आने वाले श्रद्धालुओं, साधु-संतों के नित्य भंडारा, गौ-सेवा, अन्नक्षेत्र एवं अतिथि भवन की व्यवस्था में अपना अमूल्य सहयोग एवं दान प्रदान करें।
+                </p>
+
+                <!-- Sewa Bullet Points -->
+                <div class="space-y-2 text-xs text-stone-200">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-om text-[#d7a84f]"></i>
+                        <span><strong>नित्य अन्नक्षेत्र एवं भंडारा सेवा:</strong> साधु-संत एवं तीर्थयात्री भोजन</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-om text-[#d7a84f]"></i>
+                        <span><strong>अतिथि भवन रखरखाव:</strong> स्वच्छ एवं सुलभ आवास व्यवस्था</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-om text-[#d7a84f]"></i>
+                        <span><strong>धार्मिक एवं गौ-सेवा:</strong> अयोध्या धाम में पावन धर्म कार्य</span>
+                    </div>
+                </div>
+
+                <!-- UPI & Helpline Info -->
+                <div class="p-3.5 bg-[#180209]/80 rounded-2xl border border-[#d7a84f]/40 space-y-2 text-xs">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] text-stone-400 block">आधिकारिक ट्रस्ट UPI ID:</span>
+                            <strong class="text-sm font-mono text-[#f5d891] select-all">99198857ankeshtiwri@okhdfcbank</strong>
+                        </div>
+                        <button onclick="copyDonationUPI()" class="px-3 py-1.5 bg-[#d7a84f] hover:bg-[#b7812d] text-[#180209] font-bold rounded-lg text-xs flex items-center gap-1 transition-colors shadow cursor-pointer">
+                            <i class="fa-solid fa-copy"></i> Copy UPI
+                        </button>
+                    </div>
+                    <div class="pt-1 border-t border-[#d7a84f]/20 flex flex-wrap items-center justify-between text-[11px] text-amber-200">
+                        <span><i class="fa-solid fa-user-check text-[#d7a84f] mr-1"></i> खाताधारक: Ankesh Tiwari</span>
+                        <span><i class="fa-solid fa-phone text-[#d7a84f] mr-1"></i> हेल्पलाइन: <a href="tel:8303333309" class="font-bold underline text-white">8303333309</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Compact & Clean QR Code Box -->
+            <div class="lg:col-span-3 flex flex-col items-center text-center space-y-3">
+                <div class="p-3 bg-white rounded-2xl border-2 border-[#d7a84f] shadow-[0_0_30px_rgba(215,168,79,0.35)] flex flex-col items-center">
+                    <span class="text-[10px] font-bold text-[#7d1128] uppercase tracking-wider mb-1.5 font-cinzel">Scan & Donate (UPI)</span>
+                    <div class="w-40 h-40 sm:w-44 sm:h-44 bg-white rounded-xl overflow-hidden p-1 flex items-center justify-center border border-stone-200">
+                        <img src="/static/images/cropped_payment_qr.jpg" alt="Donation QR Code" class="w-full h-full object-contain">
+                    </div>
+                    <div class="mt-2 flex items-center justify-center gap-1.5 text-[10px] text-stone-700 font-bold">
+                        <i class="fa-brands fa-google-pay text-lg text-blue-600"></i>
+                        <span class="text-purple-700">PhonePe</span>
+                        <span class="text-sky-600">Paytm</span>
+                        <span class="text-emerald-700">BHIM</span>
+                    </div>
+                </div>
+                <p class="text-[10px] text-amber-200/80 max-w-[200px]">
+                    किसी भी UPI ऐप से स्कैन करके स्वेच्छा अनुसार दान/सहयोग राशि भेजें।
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     6. AYODHYA DISTANCE GUIDE
+     ============================================ -->
+<section id="distance-section" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto space-y-1.5 mb-8">
+        <span class="text-xs font-bold tracking-widest text-[#7d1128] uppercase font-cinzel">Ayodhya Pilgrimage Distances</span>
+        <h2 class="text-3xl font-bold font-serif-mandir text-[#2a0611]">Key Locations from Trust</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {% for spot in trust.key_distances %}
+            <div class="p-4 bg-white rounded-2xl border border-[#ead8b6] shadow-sm text-center space-y-1.5 hover:border-[#d7a84f] transition-all">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-[#fff8eb] text-[#b7812d] flex items-center justify-center text-lg border border-[#ead8b6]">
+                    <i class="fa-solid {{ spot.icon }}"></i>
+                </div>
+                <h4 class="font-bold text-[#2a0611] text-xs line-clamp-2">{{ spot.place }}</h4>
+                <div class="text-[#7d1128] font-extrabold text-sm font-cinzel">{{ spot.distance }}</div>
+                <span class="text-[10px] text-stone-500 block bg-[#fff8eb] py-0.5 rounded">{{ spot.time }} commute</span>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ============================================
+     7. CONTACT & INQUIRY
+     ============================================ -->
+<section id="contact-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div class="space-y-5">
+            <div>
+                <span class="text-xs font-bold tracking-widest text-[#7d1128] uppercase font-cinzel">Trust Helpdesk</span>
+                <h2 class="text-3xl font-bold font-serif-mandir text-[#2a0611] mt-1">
+                    Connect with Shri Ram Janki Sewa Trust
+                </h2>
+                <p class="text-stone-600 text-xs mt-2 leading-relaxed">
+                    Ayodhya Dham yatra, room reservation, or direct trust inquiry ke liye hamse sampark karein.
+                </p>
+            </div>
+
+            <div class="space-y-3 text-xs text-stone-800">
+                <div class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-[#ead8b6] shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-[#fff8eb] text-[#7d1128] flex items-center justify-center text-base border border-[#ead8b6]">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold block text-[#2a0611]">Mobile & WhatsApp Helpline</span>
+                        <a href="tel:8303333309" class="text-[#7d1128] font-bold text-sm hover:underline">8303333309</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-[#ead8b6] shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-[#fff8eb] text-[#7d1128] flex items-center justify-center text-base border border-[#ead8b6]">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold block text-[#2a0611]">Official Trust Email</span>
+                        <a href="mailto:shriramjankisewa@gmail.com" class="text-[#7d1128] font-bold hover:underline">shriramjankisewa@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-[#ead8b6] shadow-sm">
+                    <div class="w-10 h-10 rounded-xl bg-[#fff8eb] text-[#7d1128] flex items-center justify-center text-base border border-[#ead8b6]">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold block text-[#2a0611]">Location</span>
+                        <span>Near Shri Ram Janmabhoomi Mandir Complex (1.4 km), Ramkot, Ayodhya Dham, UP - 224123</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-[#d7a84f]/40 shadow-xl">
+            <h3 class="text-base font-bold font-serif-mandir text-[#2a0611] mb-3">Send a Message / Inquiry</h3>
+            <form onsubmit="handleContactForm(event)" class="space-y-3.5 text-xs">
+                <div>
+                    <label class="block font-semibold text-stone-700 mb-1">Your Full Name *</label>
+                    <input type="text" name="name" placeholder="Ramesh Sharma" class="w-full px-3.5 py-2.5 bg-[#fffaf1] border border-[#ead8b6] rounded-xl outline-none focus:border-[#d7a84f]" required>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold text-stone-700 mb-1">Email Address *</label>
+                        <input type="email" name="email" placeholder="ramesh@gmail.com" class="w-full px-3.5 py-2.5 bg-[#fffaf1] border border-[#ead8b6] rounded-xl outline-none focus:border-[#d7a84f]" required>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-stone-700 mb-1">Mobile WhatsApp Number *</label>
+                        <input type="tel" name="phone" placeholder="98765 43210" class="w-full px-3.5 py-2.5 bg-[#fffaf1] border border-[#ead8b6] rounded-xl outline-none focus:border-[#d7a84f]" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-stone-700 mb-1">Your Message *</label>
+                    <textarea name="message" rows="3" placeholder="Tell us your query or arrival date..." class="w-full px-3.5 py-2.5 bg-[#fffaf1] border border-[#ead8b6] rounded-xl outline-none focus:border-[#d7a84f]" required></textarea>
+                </div>
+
+                <button type="submit" class="mandir-btn-maroon w-full py-3 font-bold rounded-xl shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     8. WELCOME INTRO VIDEO POPUP MODAL (Auto-Slide on Link Open)
+     ============================================ -->
+<div id="intro-video-modal" class="fixed inset-0 z-50 hidden modal-backdrop bg-[#180209]/85 backdrop-blur-md items-center justify-center p-4">
+    <div class="relative bg-[#2a0611] rounded-3xl overflow-hidden shadow-2xl max-w-2xl w-full border-2 border-[#d7a84f] text-white flex flex-col animate-scale-up">
+        
+        <!-- Header -->
+        <div class="p-4 bg-[#180209] flex items-center justify-between border-b border-[#d7a84f]/30">
+            <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-lg bg-[#4b0718] border border-[#d7a84f]/40 text-[#f5d891] flex items-center justify-center text-sm font-bold">
+                    <i class="fa-solid fa-om"></i>
+                </span>
+                <div>
+                    <h4 class="font-serif-mandir font-bold text-sm text-[#f5d891]">श्री राम जानकी सेवा ट्रस्ट, अयोध्या धाम</h4>
+                    <p class="text-[10px] text-stone-300">Divine Darshan & Property Preview</p>
+                </div>
+            </div>
+            <button onclick="closeVideoModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Video Player -->
+        <div class="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden">
+            <video 
+                id="intro-video-element" 
+                class="w-full h-full object-cover"
+                autoplay 
+                muted 
+                playsinline 
+                loop 
+                controls>
+                <source src="/static/videos/ayodhya_darshan_intro.mp4" type="video/mp4">
+                <source src="/videos/ayodhya_darshan_intro.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            
+            <button id="modal-unmute-btn" onclick="toggleModalVideoMute()" class="absolute bottom-4 right-4 px-3.5 py-1.5 bg-[#180209]/90 hover:bg-[#4b0718] border border-[#d7a84f] text-[#f5d891] text-xs font-bold rounded-xl shadow-lg flex items-center gap-1.5 transition-all z-20">
+                <i id="modal-mute-icon" class="fa-solid fa-volume-xmark text-[#d7a84f]"></i>
+                <span id="modal-mute-text">Unmute Audio</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-4 bg-[#180209] border-t border-[#d7a84f]/30 flex justify-between items-center text-xs">
+            <span class="text-[11px] text-[#f5d891]"><i class="fa-solid fa-gopuram mr-1 text-[#d7a84f]"></i> 1.4 km from Ram Janmabhoomi</span>
+            <div class="flex gap-2">
+                <button onclick="closeVideoModal()" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl font-semibold text-xs">
+                    Continue to Site
+                </button>
+                <a href="#rooms-section" onclick="closeVideoModal()" class="mandir-btn-gold px-5 py-2 rounded-xl font-bold text-xs flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-bed"></i> View Rooms
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function toggleHeroTopVideoMute() {
+    const video = document.getElementById('hero-top-video');
+    const icon = document.getElementById('hero-sound-icon');
+    const text = document.getElementById('hero-sound-text');
+    if (!video) return;
+    
+    if (video.muted) {
+        video.muted = false;
+        if (icon) icon.className = 'fa-solid fa-volume-high text-emerald-400';
+        if (text) text.innerText = 'ध्वनि बंद करें (Mute)';
+        showNotification('Video Sound Unmuted 🌸', 'success');
+    } else {
+        video.muted = true;
+        if (icon) icon.className = 'fa-solid fa-volume-xmark text-[#d7a84f]';
+        if (text) text.innerText = 'ध्वनि चालू करें (Unmute)';
+    }
+}
+
+function openVideoModal() {
+    const modal = document.getElementById('intro-video-modal');
+    const video = document.getElementById('intro-video-element');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+    if (video) {
+        video.currentTime = 0;
+        video.play().catch(e => console.log('Autoplay deferred', e));
+    }
+}
+
+function closeVideoModal() {
+    const modal = document.getElementById('intro-video-modal');
+    const video = document.getElementById('intro-video-element');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+    if (video) {
+        video.pause();
+    }
+}
+
+function toggleModalVideoMute() {
+    const video = document.getElementById('intro-video-element');
+    const icon = document.getElementById('modal-mute-icon');
+    const text = document.getElementById('modal-mute-text');
+    if (!video) return;
+    
+    if (video.muted) {
+        video.muted = false;
+        if (icon) icon.className = 'fa-solid fa-volume-high text-emerald-400';
+        if (text) text.innerText = 'Mute Audio';
+    } else {
+        video.muted = true;
+        if (icon) icon.className = 'fa-solid fa-volume-xmark text-[#d7a84f]';
+        if (text) text.innerText = 'Unmute Audio';
+    }
+}
+
+function copyDonationUPI() {
+    const upi = "99198857ankeshtiwri@okhdfcbank";
+    navigator.clipboard.writeText(upi).then(() => {
+        showNotification('जय श्री राम! ट्रस्ट UPI ID कॉपी हो गया 🌸', 'success', upi);
+    }).catch(() => {
+        prompt("Copy Trust UPI ID:", upi);
+    });
+}
+</script>
+{% endblock %}

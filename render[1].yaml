@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: shri-ram-janki-sewa-trust
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn wsgi:app
-    plan: free
